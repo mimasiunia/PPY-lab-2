@@ -504,46 +504,34 @@ def is_prime(n):
             return False
     return True
 
-
 def find_primes_up_to(n):
     """Generate a list of prime numbers up to n."""
     return [i for i in range(2, n + 1) if is_prime(i)]
 
+def simulate_reading_largest_integer():
 
-output_path = "output.txt"
-try:
-    with open(output_path, "r") as file:
-        integers = [int(word) for line in file for word in line.split() if word.isdigit()]
-    largest_integer = max(integers)
-except FileNotFoundError:
-    print(f"File {output_path} not found.")
-    largest_integer = None
+    integers = [5, 2, 8, 1, 9]
+    return max(integers)
 
-if largest_integer is not None:
-    prime_numbers = find_primes_up_to(largest_integer)
+largest_integer = simulate_reading_largest_integer()
 
-    print("Prime numbers:", prime_numbers)
+prime_numbers = find_primes_up_to(largest_integer)
+sum_primes = sum(prime_numbers)
+largest_prime = max(prime_numbers) if prime_numbers else None
+smallest_prime = min(prime_numbers) if prime_numbers else None
+is_largest_prime = is_prime(largest_integer)
 
-    sum_primes = sum(prime_numbers)
-    print("Sum of prime numbers:", sum_primes)
+with open("prime_numbers.txt", "w") as file:
+    file.write(f"Prime numbers up to {largest_integer}: {prime_numbers}\n")
+    file.write(f"Sum of prime numbers: {sum_primes}\n")
+    file.write(f"Largest prime: {largest_prime}\n")
+    file.write(f"Smallest prime: {smallest_prime}\n")
+    file.write(f"The largest integer ({largest_integer}) is prime: {is_largest_prime}\n")
 
-    largest_prime = max(prime_numbers) if prime_numbers else None
-    smallest_prime = min(prime_numbers) if prime_numbers else None
-    print("Largest prime:", largest_prime)
-    print("Smallest prime:", smallest_prime)
+with open("output.txt", "a") as file:
+    file.write(f"\nStudent Number: {student_number}")
 
-    is_largest_prime = is_prime(largest_integer)
-    print(f"The largest integer ({largest_integer}) is prime: {is_largest_prime}")
-
-    prime_numbers_path = "prime_numbers.txt"
-    with open(prime_numbers_path, "w") as file:
-        file.write(f"Prime numbers up to {largest_integer}: {prime_numbers}\n")
-        file.write(f"Sum of prime numbers: {sum_primes}\n")
-        file.write(f"Largest prime: {largest_prime}\n")
-        file.write(f"Smallest prime: {smallest_prime}\n")
-        file.write(f"The largest integer ({largest_integer}) is prime: {is_largest_prime}\n")
-else:
-    print("The largest integer could not be found in the file.")
+print("Operation completed. Results have been written to 'prime_numbers.txt' and 'output.txt'.")
 
 """10.
 In the final main.ipynb file, leave the results from task 8 and 9, commit and push
